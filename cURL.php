@@ -17,19 +17,12 @@ function connect($url,$data){
 	curl_setopt($curl, CURLOPT_POST, true);
 	//formdaki post verilerini girilmesini sağlar
 	curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-	//yönlendirmeleri sağlar 
+	//yönlendirmeleri sağlar
 	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 	// çıktıda başlık bulunmasını sağlar ya da iptal eder.
 	curl_setopt($curl, CURLOPT_HEADER, true);
-	//zaman aşımını önler sonsuz döngüye girmesin diye
+	//zaman aşımını önler sonsuz döngüye girmemesi için
 	curl_setopt($curl, CURLOPT_TIMEOUT, -1);
-
-	curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-	curl_setopt($curl, CURLOPT_NOBODY, true);
-
-
 	//engelemeye karşı tarayıcı bilgisi gönderir.
 	curl_setopt($curl, CURLOPT_USERAGENT, $tarayici);
 	//cookie oluşturmamızı sağlar.
@@ -38,11 +31,11 @@ function connect($url,$data){
 	curl_setopt($curl, CURLOPT_COOKIEJAR, $cookie);
 	// tutulan cookieleri geri göndermemizisağlar
 	curl_setopt($curl, CURLOPT_COOKIEFILE, $cookie);
-	//belirtilencurl sorgusunu çalıştırır.
-	$ok = curl_exec($curl);
+	//belirtilen curl sorgusunu çalıştırır.
+	$done = curl_exec($curl);
 	//curl sorgusunu sonlandırır.
 	curl_close($curl);
-	return $ok;
+	return $done;
 }
 
 // giriş yapılacak sitenin form elementlerininin namelerine göre giriş yapılmalıdır
